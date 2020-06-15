@@ -1,0 +1,76 @@
+<?php require 'header.php';?>
+
+  <!-- content -->
+  <div id="content" class="app-content" role="main">
+ <div class="app-content-body ">
+
+<div class="bg-light lter b-b wrapper-md hidden-print">
+  <h1 class="m-n font-thin h3"><?php if($cp->get('do')=='add'){echo '添加组';}elseif($cp->get('do')=='edit'){echo '编辑组';}?></h1>
+</div>
+<div class="wrapper-md control">
+	<div class="panel panel-default">
+		<div class="panel-heading font-bold">
+                    用户组信息<a href="<?=$adminurl?>admin_group" class="pull-right">返回</a>
+		</div>
+		<div class="panel-body">
+                        <form class="form-horizontal devform" method="post" <?php if($cp->get('do')=='add'){ echo 'action="?do=adds"';}elseif($cp->get('do')=='edit'){echo 'action="?do=edits&id='.$row['id'].'"';}?>>
+                           
+                            <div class="form-group">
+					<label class="col-sm-2 control-label">组名</label>
+					<div class="col-sm-9">
+                                            <input class="form-control" type="text" name="name" value="<?=@$row['name']?>">
+					</div>
+			    </div>
+                            <div class="form-group">
+					<label class="col-sm-2 control-label">描述</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="info" value="<?=@$row['info']?>">
+					</div>
+			    </div>
+                            <div class="form-group">
+					<label class="col-sm-2 control-label">登录后台</label>
+					<div class="col-sm-9">
+                                                <label class="i-switch m-t-xs m-r">
+                                                    <input type="checkbox" name="admin" value="1" <?php if(@$row['admin']==1 ){echo 'checked';}elseif(@$row['admin']==null){echo 'checked';}?>>
+                                                    <i></i>
+                                                </label>
+					</div>
+			    </div>
+                            <div class="form-group">
+					<label class="col-sm-2 control-label">状态</label>
+					<div class="col-sm-9">
+						<label class="i-switch m-t-xs m-r">
+                                                    <input type="checkbox" name="status" value="1" <?php if(@$row['status']==1){echo 'checked';}elseif(@$row['status']==null){echo 'checked';}?>>
+                                                    <i></i>
+                                                </label>
+                                            <div class="pull-right col-sm-offset-1 col-sm-1"><input type="submit" name="submit" value="确定提交" class="btn btn-primary btn-sm"/>
+					</div>
+			    </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="form-group">
+					<label class="col-sm-2 control-label">权限</label>
+					<div class="col-sm-9">
+                                            <div ui-jq="nestable" class="dd">
+                                                <ol class="dd-list">
+                                                    <?php
+                                                $muenu=$db->rows("SELECT * FROM  `cp_system_menu` ORDER BY `sort` ASC ");
+                                                $arr=$cp->category($muenu);
+                                                echo menu($arr);
+                                                ?>
+                                                </ol>
+                                            </div>
+					</div>
+			    </div>
+				<div class="form-group"> 
+				  <div class="col-sm-offset-2 col-sm-4"><input type="submit" name="submit" value="确定提交" class="btn btn-primary btn-sm"/><br/>
+				 </div>
+			</form>
+		</div>
+	</div>
+</div>
+    </div>
+  </div>
+
+
+  </div>
+ 
